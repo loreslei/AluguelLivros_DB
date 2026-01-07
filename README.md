@@ -1,10 +1,10 @@
-# 🧪 backend-test
+# AluguelLivros_DB
 
 API REST em Node.js com autenticação via JWT, documentação Swagger, Prisma ORM e suporte a PostgreSQL.
 
 ---
 
-## 📦 Tecnologias e Dependências
+## Tecnologias e Dependências
 
 - **Node.js 20+** – Ambiente de execução JavaScript
 - **Express** – Framework minimalista para construção de APIs
@@ -19,13 +19,13 @@ API REST em Node.js com autenticação via JWT, documentação Swagger, Prisma O
 
 ---
 
-## 🚀 Como rodar o projeto
+## Como rodar o projeto
 
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/backend-test.git
-cd backend-test
+git clone https://github.com/Gustavonn07/AluguelLivros_DB.git
+cd AluguelLivros_DB
 ```
 
 ### 2. Instalar as dependências

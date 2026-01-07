@@ -7,7 +7,6 @@ generator client {
 /// A URL de conexão vem da variável de ambiente `DATABASE_URL`.
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 /// Enumeração que define os tipos de perfis de usuário disponíveis no sistema.
@@ -28,3 +27,78 @@ model User {
   createdAt  DateTime  @default(now())              // Data de criação, preenchida automaticamente
   updatedAt  DateTime  @updatedAt                   // Atualiza automaticamente na modificação
 }
+
+model Client {
+  client_id Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  cpf       String   @unique
+  telephone String
+  address   String
+
+  rentals   Rental[]          
+
+  createdAt  DateTime  @default(now())              
+  updatedAt  DateTime  @updatedAt    
+}
+
+model Author {
+  author_id    Int     @id @default(autoincrement())
+  name         String
+  nationality  String
+  birth_date   DateTime
+
+  books        Book[]
+
+  createdAt  DateTime  @default(now())              
+  updatedAt  DateTime  @updatedAt  
+}
+
+model Book {
+  book_id Int     @id @default(autoincrement())
+  title   String
+  isbn    String
+  publication_date DateTime
+  publiseher       String
+
+  author_id Int
+  author    Author @relation(fields: [author_id], references: [author_id])
+
+  copies    Copy[]
+  
+  createdAt  DateTime  @default(now())              
+  updatedAt  DateTime  @updatedAt  
+}
+
+model Copy {
+  copy_id            Int     @id @default(autoincrement())
+  condition          String
+  available          Boolean @default(true)
+  bar_code           String  @unique
+
+  book_id Int
+  book    Book @relation(fields: [book_id], references: [book_id])
+
+  rentals Rental[]
+  
+  createdAt  DateTime  @default(now())              
+  updatedAt  DateTime  @updatedAt  
+}
+
+model Rental {
+  rental_id              Int      @id @default(autoincrement())
+  rental_date            DateTime
+  due_date               DateTime
+  return_date            DateTime?
+  fine_value             Float?
+
+  client_id Int
+  client    Client @relation(fields: [client_id], references: [client_id])
+
+  copy_id Int
+  copy    Copy @relation(fields: [copy_id], references: [copy_id])
+  
+  createdAt  DateTime  @default(now())              
+  updatedAt  DateTime  @updatedAt  
+}
+
