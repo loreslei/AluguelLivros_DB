@@ -1,0 +1,30 @@
+/// Define o cliente a ser gerado pelo Prisma (JavaScript/TypeScript)
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Define a fonte de dados do Prisma, neste caso um banco de dados PostgreSQL.
+/// A URL de conexão vem da variável de ambiente `DATABASE_URL`.
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Enumeração que define os tipos de perfis de usuário disponíveis no sistema.
+/// Pode ser usada como campo em modelos.
+enum Role {
+  ADMIN // Usuário com privilégios administrativos
+  USER  // Usuário comum
+}
+
+/// Modelo User — representa os usuários do sistema.
+/// Cada campo abaixo vira uma coluna na tabela `User` no banco de dados.
+model User {
+  id         String    @id @default(uuid())         // ID único gerado como UUID
+  role       Role      @default(USER)               // Cargo do usuário, padrão é USER
+  name       String    @db.VarChar(255)             // Nome do usuário, limitado a 255 caracteres
+  email      String    @unique                      // E-mail único no sistema
+  password   String    @db.VarChar(255)             // Senha criptografada, também limitada a 255
+  createdAt  DateTime  @default(now())              // Data de criação, preenchida automaticamente
+  updatedAt  DateTime  @updatedAt                   // Atualiza automaticamente na modificação
+}
