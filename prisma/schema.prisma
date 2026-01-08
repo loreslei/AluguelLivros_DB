@@ -7,6 +7,7 @@ generator client {
 /// A URL de conexão vem da variável de ambiente `DATABASE_URL`.
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 /// Enumeração que define os tipos de perfis de usuário disponíveis no sistema.
@@ -48,7 +49,7 @@ model Author {
   nationality  String
   birth_date   DateTime
 
-  books        Book[]
+  // books        Book[]
 
   createdAt  DateTime  @default(now())              
   updatedAt  DateTime  @updatedAt  
@@ -57,12 +58,12 @@ model Author {
 model Book {
   book_id Int     @id @default(autoincrement())
   title   String
-  isbn    String
-  publication_date DateTime
-  publiseher       String
+  isbn    String  @unique @db.VarChar(13)  
+  publication_year Int
+  publisher       String
 
-  author_id Int
-  author    Author @relation(fields: [author_id], references: [author_id])
+  // author_id Int
+  // author    Author @relation(fields: [author_id], references: [author_id])
 
   copies    Copy[]
   

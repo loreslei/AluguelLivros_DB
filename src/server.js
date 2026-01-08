@@ -28,6 +28,10 @@ const userRoutes = require('./routes/UserRouter')
 
 app.use('/api/v1/users', userRoutes)
 
+const bookRoutes = require('./routes/BookRouter')
+
+app.use('/api/v1/books', bookRoutes)
+
 /**
  * Configura o Express para confiar nos proxies (útil se estiver atrás de proxy reverso como Nginx).
  * Necessário em alguns casos para lidar corretamente com IPs e HTTPS.
