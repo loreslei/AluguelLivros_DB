@@ -39,8 +39,8 @@ model Book {
   publication_year Int
   publisher        String
 
-  authorId Int?
-  author   Author? @relation(fields: [authorId], references: [id])
+  authorId Int
+  author   Author @relation(fields: [authorId], references: [id])
 
   copies   Copy[]
 
