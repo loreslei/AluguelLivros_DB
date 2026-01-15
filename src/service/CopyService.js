@@ -16,7 +16,7 @@ class CopyService {
       const idNumber = Number(bookId);
       
       const copies = await prisma.copy.findMany({ 
-          where: { book_id: idNumber } 
+          where: { bookId: idNumber } 
       })
 
       if (copies && copies.length > 0) {
