@@ -11,29 +11,24 @@ class CopyService {
    * Retorna os dados de um livro específico pelo ID.
    * @param {string} id - ID do livro a ser buscado.
    */
-  async listCopy(id) {
+  async listCopy(bookId) {
     try {
-      const copy = await prisma.copy.findUnique({ where: { id: Number(id) } })
+      const idNumber = Number(bookId);
+      
+      const copies = await prisma.copy.findMany({ 
+          where: { book_id: idNumber } 
+      })
 
-      if (copy) {
-
+      if (copies && copies.length > 0) {
         return {
           type: "success",
-          message: "Listagem de cópia bem-sucedida.",
-          data: {
-            id: copy.id,
-            condition: copy.condition,
-            available: copy.available,
-            bar_code: copy.bar_code,
-            book_id: copy.book_id,
-            createdAt: copy.createdAt,
-            updatedAt: copy.updatedAt,
-          },
+          message: "Listagem de cópias bem-sucedida.",
+          data: copies, 
         }
       } else {
         return {
           type: "error",
-          message: "Cópia não existente.",
+          message: "Nenhuma cópia encontrada para este livro.",
         }
       }
     } catch (error) {
@@ -177,8 +172,6 @@ class CopyService {
       const updateData = {
         condition: data.condition,
         available: data.available,
-        bar_code: data.bar_code,
-        book_id: data.book_id,
       }
 
       const updatedCopy = await prisma.copy.update({

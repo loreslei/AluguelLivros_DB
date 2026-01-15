@@ -21,7 +21,7 @@ module.exports = {
    * Retorna os dados de um usuário específico com base no ID fornecido na URL (req.params.id).
    * Status 200 se encontrado, 404 se o usuário não existir.
    */
-  async getCopyById(req, res) {
+  async getCopyByBookId(req, res) {
     const result = await copyService.listCopy(req.params.id)
     res.status(result.type === 'success' ? 200 : 404).json(result)
   },
@@ -49,8 +49,8 @@ module.exports = {
    * Deve retornar 200 se a atualização for bem-sucedida, ou 404 se o usuário não for encontrado.
    */
   async editCopy(req, res) {
-    const { condition, available, bar_code, book_id } = req.body
-    const result = await copyService.editCopy(req.params.id, { condition, available, bar_code, book_id })
+    const { condition, available } = req.body
+    const result = await copyService.editCopy(req.params.id, { condition, available})
     res.status(result.type === 'success' ? 200 : 404).json(result)
   },
 }

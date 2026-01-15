@@ -17,7 +17,7 @@ router.post('/register', copyController.createCopy)
  * @route GET /:id
  * @description Busca e retorna os dados de uma cópia específica pelo ID.
  */
-router.get('/:id', copyController.getCopyById)
+router.get('/:id', copyController.getCopyByBookId)
 
 /**
  * @route GET /
